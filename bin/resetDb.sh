@@ -1,8 +1,8 @@
 #!/bin/bash
 
-export PGPASSWORD = 'p@ssw0rd'
+export PGPASSWORD='p@ssw0rd'
 
-./bin/shutdown.sh
+curl --user managescript:tomcat "http://localhost:8080/manager/text/stop?path=/"
 dropdb -U postgres -h localhost open_lmis
 createdb -U postgres -h localhost open_lmis \
     --encoding="UTF-8" \
@@ -10,4 +10,4 @@ createdb -U postgres -h localhost open_lmis \
     --lc-collate="en_US.UTF-8" \ 
     --lc-ctype="en_US.UTF-8"
 pg_restore open_lmis.custom | psql -q -U postgres -h localhost open_lmis -f -
-./bin/startup.sh
+curl --user managescript:tomcat "http://localhost:8080/manager/text/start?path=/"
