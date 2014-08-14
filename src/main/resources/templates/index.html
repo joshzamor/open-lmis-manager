@@ -1,0 +1,17 @@
+<html>
+<head>
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+</head>
+    <body>
+        <h1>OpenLMIS Database Reset</h1>
+        <div>Database reset is not reversible, only click button <b>once</b></div>
+        <form id="dbReset" name="dbReset" method="get" action="db/reset">
+            <input type="submit" id="dbResetSubmit" name="dbResetSubmit" value="Reset Database Now"/>
+        </form>
+        <script type="text/javascript">
+            $('#dbReset').bind('submit', function(e) {
+                $('#dbResetSubmit').attr('disabled', 'disabled');
+            });
+        </script>
+    </body>
+</html>
