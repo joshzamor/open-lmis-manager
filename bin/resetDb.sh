@@ -1,13 +1,11 @@
 #!/bin/bash
 
 export PGPASSWORD='p@ssw0rd'
+export TOMCAT_PASS=@@@TOMCAT_PASS@@@
 
-curl --user managescript:tomcat "http://localhost:8080/manager/text/stop?path=/"
+curl --user managescript:$TOMCAT_PASS "http://localhost:8080/manager/text/stop?path=/"
 dropdb -U postgres -h localhost open_lmis
-createdb -U postgres -h localhost open_lmis \
-    --encoding="UTF-8" \
-    --template="template0" \ 
-    --lc-collate="en_US.UTF-8" \ 
-    --lc-ctype="en_US.UTF-8"
+createdb -U postgres -h localhost open_lmis
 pg_restore open_lmis.custom | psql -q -U postgres -h localhost open_lmis -f -
-curl --user managescript:tomcat "http://localhost:8080/manager/text/start?path=/"
+curl --user managescript:$TOMCAT_PASS "http://localhost:8080/manager/text/start?path=/"
+curl -L "http://localhost:8080"
